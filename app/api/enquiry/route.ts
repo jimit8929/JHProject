@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
-import { Resend } from "resend"
+// import { Resend } from "resend"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: Request) {
   try {
@@ -52,24 +52,24 @@ ${message}
 This enquiry was submitted through the J & H Projects website.
 `
 
-    // Send email using Resend
-    const { error } = await resend.emails.send({
-      from: "J & H Projects Website <onboarding@resend.dev>",
-      to: ["mahendrajp1971@gmail.com"],
-      replyTo: email,
-      subject: `New Enquiry: ${subject}`,
-      text: emailContent,
-    })
+    // Temporarily disabled until RESEND_API_KEY is configured.
+    // const { error } = await resend.emails.send({
+    //   from: "J & H Projects Website <onboarding@resend.dev>",
+    //   to: ["mahendrajp1971@gmail.com"],
+    //   replyTo: email,
+    //   subject: `New Enquiry: ${subject}`,
+    //   text: emailContent,
+    // })
 
-    if (error) {
-      console.error("Resend error:", error)
-      return NextResponse.json(
-        { error: "Failed to send email" },
-        { status: 500 }
-      )
-    }
+    // if (error) {
+    //   console.error("Resend error:", error)
+    //   return NextResponse.json(
+    //     { error: "Failed to send email" },
+    //     { status: 500 }
+    //   )
+    // }
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true, emailSent: false })
   } catch (error) {
     console.error("API error:", error)
     return NextResponse.json(
